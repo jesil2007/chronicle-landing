@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronicle Platform Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 40px; height: 40px; }
+        h1 { 
+            font-size: 2rem; 
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle { color: #94a3b8; font-size: 0.875rem; }
+        .stats { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: 15px; 
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .stat-value { font-size: 2rem; font-weight: bold; }
+        .stat-label { color: #94a3b8; font-size: 0.875rem; margin-top: 5px; }
+        .card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .service-btn {
+            padding: 20px;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .service-btn:hover { border-color: #60a5fa; }
+        .service-btn.active { 
+            border-color: #3b82f6; 
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .service-icon { font-size: 2rem; margin-bottom: 10px; }
+        .service-name { font-size: 0.875rem; font-weight: 500; }
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: #3b82f6;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-primary:disabled { 
+            background: #334155; 
+            cursor: not-allowed;
+        }
+        .btn-auto {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+        .btn-auto.running { background: #dc2626; }
+        .btn-auto.stopped { background: #16a34a; }
+        .log {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        .log-entry {
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+        .log-info { background: rgba(51, 65, 85, 0.5); color: #cbd5e1; }
+        .log-success { background: rgba(34, 197, 94, 0.2); color: #86efac; }
+        .log-error { background: rgba(220, 38, 38, 0.2); color: #fca5a5; }
+        .window-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .window-box {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid;
+        }
+        .window-p10 { 
+            background: rgba(34, 197, 94, 0.1); 
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #86efac;
+        }
+        .window-p50 { 
+            background: rgba(59, 130, 246, 0.1); 
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+        }
+        .window-p95 { 
+            background: rgba(249, 115, 22, 0.1); 
+            border-color: rgba(249, 115, 22, 0.3);
+            color: #fdba74;
+        }
+        .window-label { font-size: 0.75rem; font-weight: 600; margin-bottom: 5px; }
+        .window-time { font-size: 0.875rem; }
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .info-title { color: #60a5fa; font-weight: 600; margin-bottom: 10px; }
+        .info-list { color: #cbd5e1; font-size: 0.875rem; line-height: 1.8; }
+        .event-card {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-success { background: rgba(34, 197, 94, 0.2); color: #86efac; }
+        .badge-error { background: rgba(220, 38, 38, 0.2); color: #fca5a5; }
+        .empty-state {
+            text-align: center;
+            color: #64748b;
+            padding: 60px 20px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: #93c5fd; }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .card { padding: 20px; }
+            .service-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Home
+        </a>
+
+        <div class="header">
+            <div class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <h1>Chronicle</h1>
+                    <div class="subtitle">Time Under Uncertainty · Live Demo</div>
+                </div>
+            </div>
+            <button id="autoBtn" class="btn-auto stopped" onclick="toggleAuto()">▶ Auto Run</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalEvents">0</div>
+                <div class="stat-label">Total Events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="keptPromises">0</div>
+                <div class="stat-label">Promises Kept</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="breachRate">0%</div>
+                <div class="stat-label">Breach Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="accuracy">100%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 20px;">Run Commitment Simulation</h2>
+            
+            <div class="service-grid">
+                <button class="service-btn active" data-service="primary_care" onclick="selectService(this)">
+                    <div class="service-icon">🏥</div>
+                    <div class="service-name">Primary Care Visit</div>
+                </button>
+                <button class="service-btn" data-service="specialist_consult" onclick="selectService(this)">
+                    <div class="service-icon">👨‍⚕️</div>
+                    <div class="service-name">Specialist Consult</div>
+                </button>
+                <button class="service-btn" data-service="dmv_written_test" onclick="selectService(this)">
+                    <div class="service-icon">🚗</div>
+                    <div class="service-name">DMV Written Test</div>
+                </button>
+                <button class="service-btn" data-service="legal_consultation" onclick="selectService(this)">
+                    <div class="service-icon">⚖️</div>
+                    <div class="service-name">Legal Consultation</div>
+                </button>
+            </div>
+
+            <button class="btn-primary" id="runBtn" onclick="runSimulation()">▶ Run Simulation</button>
+
+            <div class="info-box">
+                <div class="info-title">💡 Understanding Windows:</div>
+                <div class="info-list">
+                    <div><strong>P10 (Optimistic):</strong> Best case - 10% chance you're seen this early</div>
+                    <div><strong>P50 (Most Likely):</strong> Median outcome - this is the realistic target</div>
+                    <div><strong>P95 (Buffer):</strong> Worst case - 95% confident it won't exceed this</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 15px;">Live Event Log</h3>
+            <div class="log" id="eventLog">
+                <div style="color: #64748b; text-align: center; padding: 20px;">
+                    Run a simulation to see real-time event flow
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 15px;">Recent Events</h3>
+            <div id="eventList">
+                <div class="empty-state">No events yet. Click "Run Simulation" above.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const serviceModels = {
+            primary_care: { mean: 18, std: 4, tail: 45, emergencyRate: 0.05 },
+            specialist_consult: { mean: 35, std: 12, tail: 90, emergencyRate: 0.08 },
+            dmv_written_test: { mean: 28, std: 5, tail: 50, emergencyRate: 0.03 },
+            legal_consultation: { mean: 42, std: 18, tail: 95, emergencyRate: 0.06 }
+        };
+
+        let selectedService = 'primary_care';
+        let commitments = [];
+        let events = [];
+        let breaches = [];
+        let isSimulating = false;
+        let autoRunInterval = null;
+
+        function selectService(btn) {
+            document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedService = btn.dataset.service;
+        }
+
+        function toggleAuto() {
+            const btn = document.getElementById('autoBtn');
+            if (autoRunInterval) {
+                clearInterval(autoRunInterval);
+                autoRunInterval = null;
+                btn.textContent = '▶ Auto Run';
+                btn.className = 'btn-auto stopped';
+            } else {
+                autoRunInterval = setInterval(() => {
+                    if (!isSimulating) {
+                        const services = Object.keys(serviceModels);
+                        const randomService = services[Math.floor(Math.random() * services.length)];
+                        selectedService = randomService;
+                        runSimulation();
+                    }
+                }, 4000);
+                btn.textContent = '⏸ Stop Auto';
+                btn.className = 'btn-auto running';
+            }
+        }
+
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('eventLog');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            const time = new Date().toLocaleTimeString();
+            entry.textContent = `${time} ${message}`;
+            log.insertBefore(entry, log.firstChild);
+            
+            while (log.children.length > 8) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        function calculateWindow(serviceType) {
+            const model = serviceModels[serviceType];
+            const now = new Date();
+            
+            const p10Duration = Math.max(5, model.mean - model.std);
+            const p50Duration = model.mean;
+            const p95Duration = model.mean + (2 * model.std);
+            
+            return {
+                p10: new Date(now.getTime() + p10Duration * 60000),
+                p50: new Date(now.getTime() + p50Duration * 60000),
+                p95: new Date(now.getTime() + p95Duration * 60000),
+                confidence: 0.65 + (Math.random() * 0.25)
+            };
+        }
+
+        function simulateDuration(serviceType) {
+            const model = serviceModels[serviceType];
+            if (Math.random() < model.emergencyRate) {
+                return model.tail + (Math.random() * 20 - 10);
+            }
+            const u1 = Math.random();
+            const u2 = Math.random();
+            const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+            return Math.max(5, model.mean + (z * model.std));
+        }
+
+        function formatTime(date) {
+            return date.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        async function runSimulation() {
+            if (isSimulating) return;
+            
+            isSimulating = true;
+            const btn = document.getElementById('runBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Simulating...';
+
+            try {
+                addLog(`🎬 Starting simulation for ${selectedService}`, 'info');
+                await sleep(500);
+
+                const window = calculateWindow(selectedService);
+                const commitment = {
+                    id: `cmt_${Date.now()}`,
+                    service_type: selectedService,
+                    window,
+                    confidence: window.confidence,
+                    created_at: new Date()
+                };
+                commitments.unshift(commitment);
+
+                addLog('📝 Creating commitment window...', 'info');
+                await sleep(800);
+                addLog(`✅ Commitment created: ${commitment.id.slice(0, 15)}...`, 'success');
+                await sleep(800);
+                addLog(`🎯 Window: ${formatTime(window.p50)} (${(window.confidence * 100).toFixed(0)}% confidence)`, 'info');
+                await sleep(800);
+
+                addLog('⏱️ Simulating service delivery...', 'info');
+                const actualDuration = simulateDuration(selectedService);
+                await sleep(1000);
+
+                const startTime = new Date();
+                const endTime = new Date(startTime.getTime() + actualDuration * 60000);
+                const breach = endTime > window.p95;
+
+                const event = {
+                    id: `evt_${Date.now()}`,
+                    commitment_id: commitment.id,
+                    service_type: selectedService,
+                    actual_duration: actualDuration,
+                    window,
+                    breach,
+                    timestamp: new Date()
+                };
+                events.unshift(event);
+
+                if (breach) {
+                    breaches.push(event);
+                    const exceeded = actualDuration - ((window.p95 - startTime) / 60000);
+                    addLog(`⚠️ BREACH: Exceeded P95 by ${exceeded.toFixed(1)} min`, 'error');
+                } else {
+                    addLog(`✅ Promise kept: Completed in ${actualDuration.toFixed(1)} min`, 'success');
+                }
+
+                updateStats();
+                updateEventList();
+
+            } finally {
+                isSimulating = false;
+                btn.disabled = false;
+                btn.textContent = '▶ Run Simulation';
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('totalEvents').textContent = commitments.length;
+            document.getElementById('keptPromises').textContent = commitments.length - breaches.length;
+            const breachRate = commitments.length > 0 ? (breaches.length / commitments.length * 100).toFixed(1) : 0;
+            document.getElementById('breachRate').textContent = `${breachRate}%`;
+            const accuracy = commitments.length > 0 ? ((commitments.length - breaches.length) / commitments.length * 100).toFixed(1) : 100;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        function updateEventList() {
+            const container = document.getElementById('eventList');
+            container.innerHTML = '';
+
+            events.slice(0, 10).forEach(event => {
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                card.innerHTML = `
+                    <div class="event-header">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 5px;">${event.service_type}</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8;">Duration: ${event.actual_duration.toFixed(1)} min</div>
+                        </div>
+                        <span class="badge ${event.breach ? 'badge-error' : 'badge-success'}">
+                            ${event.breach ? 'BREACH' : 'KEPT'}
+                        </span>
+                    </div>
+                    <div class="window-grid">
+                        <div class="window-box window-p10">
+                            <div class="window-label">P10</div>
+                            <div class="window-time">${formatTime(event.window.p10)}</div>
+                        </div>
+                        <div class="window-box window-p50">
+                            <div class="window-label">P50</div>
+                            <div class="window-time">${formatTime(event.window.p50)}</div>
+                        </div>
+                        <div class="window-box window-p95">
+                            <div class="window-label">P95</div>
+                            <div class="window-time">${formatTime(event.window.p95)}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+</html>
