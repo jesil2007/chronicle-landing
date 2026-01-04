@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronicle - Infrastructure for Time Under Uncertainty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+        }
+        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-2xl font-bold gradient-text">Chronicle</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#problem" class="text-slate-300 hover:text-white transition-colors">Problem</a>
+                <a href="#solution" class="text-slate-300 hover:text-white transition-colors">Solution</a>
+                <a href="#demo" class="text-slate-300 hover:text-white transition-colors">Live Demo</a>
+                <a href="#access" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-colors">
+                    Get Access
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
+                        <span class="text-blue-400 text-sm font-medium">🚀 Now in Private Beta</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                        The <span class="gradient-text">Stripe</span> for<br/>Time Under Uncertainty
+                    </h1>
+                    <p class="text-xl text-slate-300 mb-8 leading-relaxed">
+                        Infrastructure that turns unpredictable wait times into trusted commitments. 
+                        One API call replaces lies with probabilistic truth.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#demo" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors pulse-glow text-center">
+                            See Live Demo
+                        </a>
+                        <a href="#access" class="glass hover:bg-slate-800/70 px-8 py-4 rounded-lg font-semibold text-lg transition-colors text-center">
+                            Request Access
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center gap-6 text-sm text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>10-min integration</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Zero staff training</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>ROI in 6 months</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block float-animation">
+                    <div class="glass rounded-2xl p-8 shadow-2xl">
+                        <div class="text-sm text-slate-400 mb-4">POST /commitments</div>
+                        <div class="bg-slate-900/50 rounded-lg p-4 font-mono text-sm mb-4">
+                            <div class="text-purple-400">{"</div>
+                            <div class="ml-4 text-blue-400">"service_type": "primary_care",</div>
+                            <div class="ml-4 text-blue-400">"scheduled_time": "14:00"</div>
+                            <div class="text-purple-400">}</div>
+                        </div>
+                        <div class="text-sm text-slate-400 mb-2">↓ Returns probabilistic window:</div>
+                        <div class="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-lg p-4">
+                            <div class="grid grid-cols-3 gap-3 text-center">
+                                <div>
+                                    <div class="text-xs text-slate-400 mb-1">P10</div>
+                                    <div class="font-bold text-green-400">2:00 PM</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400 mb-1">P50</div>
+                                    <div class="font-bold text-blue-400">2:15 PM</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400 mb-1">P95</div>
+                                    <div class="font-bold text-orange-400">2:45 PM</div>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-center text-sm text-slate-300">
+                                78% confidence
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-20 px-6 bg-slate-900/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">The $50B Problem Nobody Solved</h2>
+                <p class="text-xl text-slate-400">Healthcare, DMV, courts, legal services—all share the same broken pattern</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass rounded-xl p-8 hover:border-red-500/30 transition-colors">
+                    <div class="text-4xl mb-4">😤</div>
+                    <h3 class="text-xl font-bold mb-3">Patients Rage</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        "Appointment at 2pm" means waiting until 3:15pm with zero visibility. 
+                        Powerless captivity breeds complaints, no-shows, and lost trust.
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-8 hover:border-red-500/30 transition-colors">
+                    <div class="text-4xl mb-4">😰</div>
+                    <h3 class="text-xl font-bold mb-3">Staff Suffer</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Front desk told to lie ("just 15 minutes") becomes the punching bag. 
+                        Burnout, turnover, moral injury from being forced to deceive.
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-8 hover:border-red-500/30 transition-colors">
+                    <div class="text-4xl mb-4">💸</div>
+                    <h3 class="text-xl font-bold mb-3">Organizations Bleed</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        $150-300 per no-show. Satisfaction scores tank. Reimbursement penalties. 
+                        Reputation damage that takes years to repair.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-12 glass rounded-xl p-8 border-l-4 border-orange-500">
+                <div class="flex items-start gap-4">
+                    <svg class="w-8 h-8 text-orange-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    <div>
+                        <h4 class="font-bold text-lg mb-2">Root Cause: Information Asymmetry</h4>
+                        <p class="text-slate-300">
+                            Organizations know delays are coming but can't communicate them honestly. 
+                            Patients have zero visibility or agency. This isn't a scheduling problem—it's a systems design failure.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">One Primitive Changes Everything</h2>
+                <p class="text-xl text-slate-400">The Commitment Window™ — Probabilistic truth replaces deterministic lies</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-3xl font-bold mb-6">How It Works</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 font-bold">
+                                1
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Single API Call</h4>
+                                <p class="text-slate-400">Your scheduler sends us appointment details. No workflow changes. No staff training.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 font-bold">
+                                2
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Probabilistic Window</h4>
+                                <p class="text-slate-400">We return P10/P50/P95 predictions based on historical data, not fantasy schedules.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 font-bold">
+                                3
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Real-Time Updates</h4>
+                                <p class="text-slate-400">Window shifts as delays occur. Patients get SMS updates automatically. No manual work.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 font-bold">
+                                4
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Breach Detection</h4>
+                                <p class="text-slate-400">When promises break, automatic compensation triggers. Accountability without blame.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-8">
+                    <div class="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/30 rounded-xl p-6 mb-6">
+                        <div class="text-sm text-slate-400 mb-2">Before Chronicle</div>
+                        <div class="text-2xl font-bold mb-2">"Your appointment is at 2:00 PM"</div>
+                        <div class="text-red-400 text-sm">❌ Arrives at 1:45pm, waits until 3:15pm, leaves furious</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6">
+                        <div class="text-sm text-slate-400 mb-2">With Chronicle</div>
+                        <div class="text-2xl font-bold mb-2">"We'll see you 2:00-2:45 PM"</div>
+                        <div class="text-green-400 text-sm mb-2">✅ Gets coffee, arrives at 2:10pm, seen at 2:20pm</div>
+                        <div class="text-xs text-slate-400 italic mt-3 pt-3 border-t border-slate-700">
+                            "Finally, someone who respects my time and tells me the truth"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Props -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass rounded-xl p-8 text-center">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h4 class="text-xl font-bold mb-3">Zero Friction Integration</h4>
+                    <p class="text-slate-400">10 minutes to first value. No rip-and-replace. Works with any scheduler or EMR.</p>
+                </div>
+                <div class="glass rounded-xl p-8 text-center">
+                    <div class="text-5xl mb-4">📈</div>
+                    <h4 class="text-xl font-bold mb-3">Compounding Accuracy</h4>
+                    <p class="text-slate-400">Every event improves predictions. Data gravity builds your moat over time.</p>
+                </div>
+                <div class="glass rounded-xl p-8 text-center">
+                    <div class="text-5xl mb-4">🌐</div>
+                    <h4 class="text-xl font-bold mb-3">Cross-Sector Platform</h4>
+                    <p class="text-slate-400">Same API works for healthcare, DMV, courts, legal. Universal primitives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 px-6 bg-slate-900/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">See It In Action</h2>
+                <p class="text-xl text-slate-400 mb-8">Interactive demo showing real Chronicle behavior</p>
+                <a href="YOUR_DEMO_URL_HERE" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors pulse-glow">
+                    Launch Live Demo →
+                </a>
+            </div>
+            <div class="glass rounded-2xl p-8 max-w-4xl mx-auto">
+                <div class="aspect-video bg-slate-900/50 rounded-lg flex items-center justify-center border border-slate-700">
+                    <div class="text-center">
+                        <svg class="w-20 h-20 mx-auto mb-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-slate-400">Click above to try the interactive demo</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 mt-8">
+                    <div class="bg-slate-900/50 rounded-lg p-4">
+                        <div class="text-3xl font-bold text-blue-400 mb-1">-22%</div>
+                        <div class="text-sm text-slate-400">No-show reduction</div>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-lg p-4">
+                        <div class="text-3xl font-bold text-green-400 mb-1">+35%</div>
+                        <div class="text-sm text-slate-400">Patient satisfaction</div>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-lg p-4">
+                        <div class="text-3xl font-bold text-purple-400 mb-1">85%</div>
+                        <div class="text-sm text-slate-400">Promise accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Access Section -->
+    <section id="access" class="py-20 px-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="glass rounded-2xl p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Join the Private Beta</h2>
+                    <p class="text-slate-400">Limited spots for healthcare organizations ready to transform their wait experience</p>
+                </div>
+                <form class="space-y-6" id="accessForm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">First Name *</label>
+                            <input type="text" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors" placeholder="John">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Last Name *</label>
+                            <input type="text" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Work Email *</label>
+                        <input type="email" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors" placeholder="john@clinic.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Organization *</label>
+                        <input type="text" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors" placeholder="Memorial Hospital">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Role *</label>
+                        <select required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors">
+                            <option value="">Select your role</option>
+                            <option value="cio">CIO / CTO</option>
+                            <option value="coo">COO / Operations</option>
+                            <option value="cmo">CMO / Marketing</option>
+                            <option value="pm">Product Manager</option>
+                            <option value="dev">Developer</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">How many locations?</label>
+                        <input type="number" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors" placeholder="5">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Tell us about your wait time challenges</label>
+                        <textarea rows="4" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors" placeholder="Our biggest pain point is..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-lg font-semibold text-lg transition-colors pulse-glow">
+                        Request Access
+                    </button>
+                    <p class="text-xs text-slate-500 text-center">
+                        We'll respond within 24 hours with next steps
+                    </p>
+                </form>
+                <div id="successMessage" class="hidden mt-6 bg-green-500/20 border border-green-500/30 rounded-lg p-4 text-center">
+                    <div class="text-2xl mb-2">✅</div>
+                    <div class="font-semibold mb-1">Request Received!</div>
+                    <div class="text-sm text-slate-400">We'll be in touch within 24 hours.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-xl font-bold">Chronicle</span>
+                    </div>
+                    <p class="text-sm text-slate-400">Infrastructure for time under uncertainty</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#solution" class="hover:text-white transition-colors">How it Works</a></li>
+                        <li><a href="#demo" class="hover:text-white transition-colors">Live Demo</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API Docs</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Security</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">HIPAA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
+                © 2026 Chronicle. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('accessForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would normally send to your backend
+            // For now, just show success message
+            
+            this.classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            
+            // In production, you'd do something like:
+            // fetch('/api/access-requests', {
+            //     method: 'POST',
+            //     body: JSON.stringify(formData)
+            // })
+        });
+    </script>
+</body>
+</html>
